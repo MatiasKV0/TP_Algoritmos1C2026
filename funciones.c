@@ -110,6 +110,7 @@ int generarIndiceDesdeDat(const char *path_dat, t_indice *ind)
 
     t_socio socio;
     unsigned nro_reg = 0;
+    ind_crear(ind,sizeof(t_socio),compararDniIndice);
 
     fread(&socio, sizeof(t_socio), 1, fp);
     while (!feof(fp)) {
@@ -133,4 +134,10 @@ int compararDniIndice(const void *a, const void *b)
     if (*dniA == *dniB) return 0;
     if (*dniA > *dniB) return 1;    // A es mayor
     return -1;                      // A es menor
+}
+
+void imprimirIndice(const void* a, const void* b){
+    const t_reg_indice *regA = (const t_reg_indice *)a;
+
+    printf("%ld : %u\n", *(const long*)regA->clave, regA->nro_reg);
 }
